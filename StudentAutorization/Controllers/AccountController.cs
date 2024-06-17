@@ -31,22 +31,6 @@ namespace StudentAutorization.Controllers
         }
 
 
-
-        // GET: api/<AccountController>
-        //[HttpGet]
-        //public IEnumerable<string> Get()
-        //{
-        //    return new string[] { "value1", "value2" };
-        //}
-
-        //// GET api/<AccountController>/5
-        //[HttpGet("{id}")]
-        //public string Get(int id)
-        //{
-        //    return "value";
-        //}
-
-        // POST api/<AccountController>
         [HttpPost("login")]
         [AllowAnonymous]
         public async Task<ActionResult<AuthResponseDto>> Login(LoginDto loginDto)
@@ -211,26 +195,12 @@ namespace StudentAutorization.Controllers
                 Id = u.Id,
                 Email = u.Email,
                 FullName = u.FullName,
-                Roles =  _userManager.GetRolesAsync(u).Result.ToArray()
+                Roles =  _userManager.GetRolesAsync(u).Result.ToArray()// не работает
               }).ToListAsync();
                return Ok(users);
         }
 
 
-        //public void Post([FromBody] string value)
-        //{
-        //}
-
-        // PUT api/<AccountController>/5
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody] string value)
-        //{
-        //}
-
-        //// DELETE api/<AccountController>/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
+ 
     }
 }

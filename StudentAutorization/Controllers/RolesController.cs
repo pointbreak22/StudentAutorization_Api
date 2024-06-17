@@ -57,7 +57,7 @@ namespace StudentAutorization.Controllers
 
                 Id = r.Id,
                 Name = r.Name,
-                TotalUsers = _userManager.GetUsersInRoleAsync(r.Name!).Result.Count
+                TotalUsers = _userManager.GetUsersInRoleAsync(r.Name!).Result.Count  //не работает
 
 
 
