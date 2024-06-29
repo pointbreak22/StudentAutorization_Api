@@ -29,7 +29,7 @@ namespace StudentAutorization.Repositories.Implementation
 
         public async Task<IEnumerable<Group>> GetAllAsync()
         {
-            var group = await _appDbContext.Groups.Include(c=>c.Course)
+            var group = await _appDbContext.Groups.Include(c=>c.Course).Include(t=>t.Teacher) //не работает Teacher
                .ToListAsync();
             return group;
 
