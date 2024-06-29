@@ -4,16 +4,30 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using StudentAutorization.Data;
-using StudentAutorization.Models;
+using StudentAutorization.Models.Autorization;
+
+using StudentAutorization.Repositories.Implementation;
+using StudentAutorization.Repositories.Interface;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 var JWTSetting = builder.Configuration.GetSection("JWTSetting");
 
 // Add services to the container.
+//builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+
 
 builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
+
+builder.Services.AddScoped<IStudentRepository, StudentRepository>();
+builder.Services.AddScoped<ICourseRepository, CourseRepository>();
+builder.Services.AddScoped<IGroupRepository, GroupRepository>();
+builder.Services.AddScoped<ITeacherRepositoty, TeacherRepository>();
+
+
+
+
 
 builder.Services.AddAuthentication(opt =>
 {
@@ -29,6 +43,7 @@ builder.Services.AddAuthentication(opt =>
         ValidateIssuer = true,
         ValidateAudience = true,
         ValidateLifetime = true,
+        ClockSkew=TimeSpan.Zero,
         ValidateIssuerSigningKey = true,
         ValidAudience = JWTSetting["ValidAudience"],
         ValidIssuer = JWTSetting["ValidIssuer"],

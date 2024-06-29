@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace StudentAutorization.Dtos
+namespace StudentAutorization.Dtos.Autorization
 {
     public class RegisterDto
     {

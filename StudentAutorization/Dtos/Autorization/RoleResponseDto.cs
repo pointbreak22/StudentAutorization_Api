@@ -1,4 +1,4 @@
-﻿namespace StudentAutorization.Dtos
+﻿namespace StudentAutorization.Dtos.Autorization
 {
     public class RoleResponseDto
     {

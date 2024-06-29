@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using StudentAutorization.Data;
@@ -11,9 +12,11 @@ using StudentAutorization.Data;
 namespace StudentAutorization.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240628213631_database46")]
+    partial class database46
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -287,6 +290,7 @@ namespace StudentAutorization.Migrations
                         .HasColumnType("text");
 
                     b.Property<byte[]>("Photo")
+                        .IsRequired()
                         .HasColumnType("bytea");
 
                     b.HasKey("Id");
@@ -373,7 +377,7 @@ namespace StudentAutorization.Migrations
                         .IsRequired();
 
                     b.HasOne("StudentAutorization.Models.Main.Teacher", "Teacher")
-                        .WithMany("Groups")
+                        .WithMany("Group")
                         .HasForeignKey("TeacherId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -401,7 +405,7 @@ namespace StudentAutorization.Migrations
 
             modelBuilder.Entity("StudentAutorization.Models.Main.Teacher", b =>
                 {
-                    b.Navigation("Groups");
+                    b.Navigation("Group");
                 });
 #pragma warning restore 612, 618
         }
