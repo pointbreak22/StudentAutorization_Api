@@ -12,6 +12,6 @@ namespace StudentAutorization.Models.Main
         [Required]
         public string Name { get; set; } = string.Empty;
 
-        public List<Group> Groups { get; }=new List<Group>();
+        public List<Group>? Groups { get; set; }
     }
 }

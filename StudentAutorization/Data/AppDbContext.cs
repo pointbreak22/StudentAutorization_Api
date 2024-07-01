@@ -12,7 +12,6 @@ namespace StudentAutorization.Data
         public DbSet<Student> Students { get; set; }
         public DbSet<Group> Groups { get; set; }
         public DbSet<Teacher> Teachers { get; set; }
-
         public DbSet<Course> Courses { get; set; }
 
 
@@ -21,6 +20,24 @@ namespace StudentAutorization.Data
 
         }
 
-    
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+           
+
+        //    modelBuilder.Entity<Student>()
+        //        .HasOne(p => p.Group)
+        //        .WithMany(t => t.Students)
+        //        .HasForeignKey(p => p.GroupId);
+
+        //    modelBuilder.Entity<Group>()
+        //        .HasOne(p => p.Teacher)
+        //        .WithMany(t => t.Groups)
+        //        .HasForeignKey(p => p.TeacherId);
+
+        //    base.OnModelCreating(modelBuilder);
+
+        //}
+
+
     }
 }

@@ -12,20 +12,17 @@ namespace StudentAutorization.Models.Main
         [Required]
         public string Name { get; set; } = string.Empty;
 
-        [ForeignKey("Course")]
+       
         public int CourseId { get; set; }
 
         public Course? Course { get; set; }
 
-        [ForeignKey("Teacher")]
+      
         public int TeacherId { get; set; }
    
         public Teacher? Teacher { get; set; }
 
         public List<Student> Students { get; } = new List<Student>();
-
-
-
 
     }
 }

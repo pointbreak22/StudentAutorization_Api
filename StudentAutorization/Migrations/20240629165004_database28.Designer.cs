@@ -12,8 +12,8 @@ using StudentAutorization.Data;
 namespace StudentAutorization.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240625132349_database")]
-    partial class database
+    [Migration("20240629165004_database28")]
+    partial class database28
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -255,11 +255,21 @@ namespace StudentAutorization.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("CourseId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int>("TeacherId")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("CourseId");
+
+                    b.HasIndex("TeacherId");
 
                     b.ToTable("Groups");
                 });
@@ -280,7 +290,6 @@ namespace StudentAutorization.Migrations
                         .HasColumnType("text");
 
                     b.Property<byte[]>("Photo")
-                        .IsRequired()
                         .HasColumnType("bytea");
 
                     b.HasKey("Id");
@@ -358,15 +367,44 @@ namespace StudentAutorization.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("StudentAutorization.Models.Main.Group", b =>
+                {
+                    b.HasOne("StudentAutorization.Models.Main.Course", "Course")
+                        .WithMany()
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("StudentAutorization.Models.Main.Teacher", "Teacher")
+                        .WithMany("Groups")
+                        .HasForeignKey("TeacherId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Course");
+
+                    b.Navigation("Teacher");
+                });
+
             modelBuilder.Entity("StudentAutorization.Models.Main.Student", b =>
                 {
                     b.HasOne("StudentAutorization.Models.Main.Group", "Group")
-                        .WithMany()
+                        .WithMany("Students")
                         .HasForeignKey("GroupId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Group");
+                });
+
+            modelBuilder.Entity("StudentAutorization.Models.Main.Group", b =>
+                {
+                    b.Navigation("Students");
+                });
+
+            modelBuilder.Entity("StudentAutorization.Models.Main.Teacher", b =>
+                {
+                    b.Navigation("Groups");
                 });
 #pragma warning restore 612, 618
         }

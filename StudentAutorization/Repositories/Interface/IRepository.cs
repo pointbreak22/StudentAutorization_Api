@@ -1,6 +1,6 @@
 ﻿namespace StudentAutorization.Repositories.Interface
 {
-    public interface IRepository<T> where T : class
+    public interface IRepository<T> where T : class    //не используется
     {
         Task<IEnumerable<T>> GetAllAsync();
         Task<T> GetByIdAsync(int id);

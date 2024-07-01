@@ -27,7 +27,7 @@ namespace StudentAutorization.Controllers.Main
 
         // GET: api/<GroupController>
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get()    //тут не работает
         {
             var groups = await _groupRepository.GetAllAsync();
             return Ok(groups);

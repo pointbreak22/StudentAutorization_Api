@@ -12,8 +12,8 @@ using StudentAutorization.Data;
 namespace StudentAutorization.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240625133929_database2")]
-    partial class database2
+    [Migration("20240629161146_database24")]
+    partial class database24
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -290,7 +290,6 @@ namespace StudentAutorization.Migrations
                         .HasColumnType("text");
 
                     b.Property<byte[]>("Photo")
-                        .IsRequired()
                         .HasColumnType("bytea");
 
                     b.HasKey("Id");
@@ -371,13 +370,13 @@ namespace StudentAutorization.Migrations
             modelBuilder.Entity("StudentAutorization.Models.Main.Group", b =>
                 {
                     b.HasOne("StudentAutorization.Models.Main.Course", "Course")
-                        .WithMany("Group")
+                        .WithMany()
                         .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("StudentAutorization.Models.Main.Teacher", "Teacher")
-                        .WithMany("Group")
+                        .WithMany("Groups")
                         .HasForeignKey("TeacherId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -398,11 +397,6 @@ namespace StudentAutorization.Migrations
                     b.Navigation("Group");
                 });
 
-            modelBuilder.Entity("StudentAutorization.Models.Main.Course", b =>
-                {
-                    b.Navigation("Group");
-                });
-
             modelBuilder.Entity("StudentAutorization.Models.Main.Group", b =>
                 {
                     b.Navigation("Students");
@@ -410,7 +404,7 @@ namespace StudentAutorization.Migrations
 
             modelBuilder.Entity("StudentAutorization.Models.Main.Teacher", b =>
                 {
-                    b.Navigation("Group");
+                    b.Navigation("Groups");
                 });
 #pragma warning restore 612, 618
         }

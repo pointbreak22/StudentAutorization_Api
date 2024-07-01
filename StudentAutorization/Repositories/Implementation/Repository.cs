@@ -5,7 +5,7 @@ using StudentAutorization.Repositories.Interface;
 
 namespace StudentAutorization.Repositories.Implementation
 {
-    public  class Repository<T> : IRepository<T> where T : class
+    public  class Repository<T> : IRepository<T> where T : class   //не используется
      {
   
         private readonly AppDbContext _appDbContext;

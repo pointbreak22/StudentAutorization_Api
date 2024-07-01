@@ -5,7 +5,7 @@ using StudentAutorization.Repositories.Interface;
 
 namespace StudentAutorization.Repositories.Implementation
 {
-    public class GroupRepository:IGroupRepository
+    public class GroupRepository:IGroupRepository   //тут ошибка
     {
         private readonly AppDbContext _appDbContext;
 
