@@ -13,8 +13,6 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 var JWTSetting = builder.Configuration.GetSection("JWTSetting");
 
-// Add services to the container.
-//builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
 
 builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
