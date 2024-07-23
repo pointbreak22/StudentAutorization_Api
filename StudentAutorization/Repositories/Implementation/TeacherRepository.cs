@@ -2,6 +2,7 @@
 using StudentAutorization.Data;
 using StudentAutorization.Models.Main;
 using StudentAutorization.Repositories.Interface;
+using StudentAutorization.ViewModel;
 
 namespace StudentAutorization.Repositories.Implementation
 {
@@ -27,11 +28,22 @@ namespace StudentAutorization.Repositories.Implementation
             await _appDbContext.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<Teacher>> GetAllAsync()
+        public async Task<IEnumerable<TeacherDto>> GetAllAsync()
         {
-            var teacher = await _appDbContext.Teachers
-               .ToListAsync();
-            return teacher;
+            var teacherDto = _appDbContext.Teachers.Select(s => new TeacherDto
+            {
+                Id = s.Id,
+                Name = s.Name,
+               
+                PictureId = s.PictureId,
+
+                PictureName = s.Picture!.Src,
+             
+
+
+
+            });
+            return teacherDto;
 
 
         }

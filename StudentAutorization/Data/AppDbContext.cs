@@ -13,16 +13,19 @@ namespace StudentAutorization.Data
         public DbSet<Group> Groups { get; set; }
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<Course> Courses { get; set; }
+        public DbSet<Picture> Pictures { get; set; }
 
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
+        //    Database.EnsureDeleted();
+         // Database.EnsureCreated();
 
         }
 
         //protected override void OnModelCreating(ModelBuilder modelBuilder)
         //{
-           
+
 
         //    modelBuilder.Entity<Student>()
         //        .HasOne(p => p.Group)

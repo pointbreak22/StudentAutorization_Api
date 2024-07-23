@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using StudentAutorization.Data;
@@ -11,9 +12,11 @@ using StudentAutorization.Data;
 namespace StudentAutorization.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240722145155_mfinal5")]
+    partial class mfinal5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,9 +28,6 @@ namespace StudentAutorization.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("text");
-
-                    b.Property<string>("AppUserId")
                         .HasColumnType("text");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -43,8 +43,6 @@ namespace StudentAutorization.Migrations
                         .HasColumnType("character varying(256)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AppUserId");
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
@@ -355,13 +353,6 @@ namespace StudentAutorization.Migrations
                     b.ToTable("Teachers");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
-                {
-                    b.HasOne("StudentAutorization.Models.Autorization.AppUser", null)
-                        .WithMany("Roles")
-                        .HasForeignKey("AppUserId");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -460,11 +451,6 @@ namespace StudentAutorization.Migrations
                         .IsRequired();
 
                     b.Navigation("Picture");
-                });
-
-            modelBuilder.Entity("StudentAutorization.Models.Autorization.AppUser", b =>
-                {
-                    b.Navigation("Roles");
                 });
 
             modelBuilder.Entity("StudentAutorization.Models.Main.Group", b =>

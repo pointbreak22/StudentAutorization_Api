@@ -2,6 +2,7 @@
 using StudentAutorization.Data;
 using StudentAutorization.Models.Main;
 using StudentAutorization.Repositories.Interface;
+using StudentAutorization.ViewModel;
 
 namespace StudentAutorization.Repositories.Implementation
 {
@@ -27,18 +28,32 @@ namespace StudentAutorization.Repositories.Implementation
             await _appDbContext.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable< Student>> GetAllAsync()
+        public async Task<IEnumerable<StudentDto>> GetAllAsync()
         {
-            var student = await _appDbContext. Students
-               .ToListAsync();
-            return student;
+          
+
+            var studentDto = _appDbContext.Students.Select(s => new StudentDto
+            {
+                Id = s.Id,
+                FIO = s.FIO,
+                NumberPhone = s.NumberPhone,
+             
+                PictureName = s.Picture!.Src,
+                GroupName = s.Group!.Name
+
+
+
+            });
+            //   var group = await _appDbContext.Groups.Include(c=>c.Course).Include(t=>t.Teacher) //не работает Teacher
+            //    .ToListAsync();
+            return studentDto;
 
 
         }
 
         public async Task< Student> GetByIdAsync(int id)
         {
-            return await _appDbContext. Students.FindAsync(id);
+            return await _appDbContext.Students.FindAsync(id);
         }
 
         public async Task UpdateAsync(Student student)

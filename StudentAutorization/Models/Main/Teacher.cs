@@ -1,5 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.RegularExpressions;
 
 namespace StudentAutorization.Models.Main
 {
@@ -11,7 +13,17 @@ namespace StudentAutorization.Models.Main
 
         [Required]
         public string Name { get; set; } = string.Empty;
+        public int PictureId { get; set; }
+
+        [ForeignKey(nameof(PictureId))]
+        public Picture? Picture { get; set; }
+
+
+        [System.Text.Json.Serialization.JsonIgnore]
 
         public List<Group>? Groups { get; set; }
+        
+
+
     }
 }

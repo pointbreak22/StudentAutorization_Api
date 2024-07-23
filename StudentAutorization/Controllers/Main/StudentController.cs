@@ -14,11 +14,14 @@ namespace StudentAutorization.Controllers.Main
 
         private readonly IStudentRepository _studentRepository;
         private readonly IGroupRepository _groupRepository;
+        private readonly IPictureRepository _pictureRepository;
 
-        public StudentController(IStudentRepository studentRepository, IGroupRepository groupRepository)
+
+        public StudentController(IStudentRepository studentRepository, IGroupRepository groupRepository, IPictureRepository pictureRepository)
         {
             _studentRepository = studentRepository;
             _groupRepository = groupRepository;
+            _pictureRepository = pictureRepository;
         }
 
         // GET: api/<StudentController>
@@ -48,10 +51,10 @@ namespace StudentAutorization.Controllers.Main
         {
             var student= new Student()
             {
-                Name = studentRequest.Name,
-                GroupId = studentRequest.GroupId,
+                FIO = studentRequest.FIO,
+                NumberPhone = studentRequest.NumberPhone,
                 Group = _groupRepository.GetByIdAsync(studentRequest.GroupId).Result,
-                Photo=studentRequest.Photo
+                Picture=_pictureRepository.GetByIdAsync(studentRequest.PictureId).Result,
                 
 
 
@@ -71,10 +74,13 @@ namespace StudentAutorization.Controllers.Main
             {
                 return NotFound();
             }
-            student.Name = studentRequest.Name;
-            student.Photo = studentRequest.Photo;
+            student.FIO = studentRequest.FIO;
+            student.NumberPhone = studentRequest.NumberPhone;
+            student.PictureId = studentRequest.PictureId;
             student.GroupId = studentRequest.GroupId;
             student.Group =_groupRepository.GetByIdAsync(studentRequest.GroupId).Result;
+            student.Picture = _pictureRepository.GetByIdAsync(studentRequest.PictureId).Result;
+
             await _studentRepository.UpdateAsync(student);
             return NoContent();
             

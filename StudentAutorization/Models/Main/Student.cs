@@ -11,13 +11,17 @@ namespace StudentAutorization.Models.Main
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         [Required]
-        public string Name { get; set; }=string.Empty;
-        [ForeignKey("Group")]
-        public int GroupId { get; set; }
-      
-        public Group? Group { get; set; }
+        public string FIO { get; set; }=string.Empty;
+        public string NumberPhone { get; set; } = string.Empty;
 
-        public byte[]? Photo { get; set; }
+        public int GroupId { get; set; }
+
+        [ForeignKey(nameof(GroupId))]
+        public Group? Group { get; set; }
+   
+        public int PictureId { get; set; }
+
+        public  Picture? Picture { get; set; }
 
 
         

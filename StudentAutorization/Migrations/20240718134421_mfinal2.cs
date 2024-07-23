@@ -5,7 +5,7 @@
 namespace StudentAutorization.Migrations
 {
     /// <inheritdoc />
-    public partial class database29 : Migration
+    public partial class mfinal2 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

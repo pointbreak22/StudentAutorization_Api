@@ -2,6 +2,7 @@
 using StudentAutorization.Data;
 using StudentAutorization.Models.Main;
 using StudentAutorization.Repositories.Interface;
+using StudentAutorization.ViewModel;
 
 namespace StudentAutorization.Repositories.Implementation
 {
@@ -27,11 +28,23 @@ namespace StudentAutorization.Repositories.Implementation
             await _appDbContext.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<Group>> GetAllAsync()
+        public async Task<IEnumerable<GroupDto>> GetAllAsync()
         {
-            var group = await _appDbContext.Groups.Include(c=>c.Course).Include(t=>t.Teacher) //не работает Teacher
-               .ToListAsync();
-            return group;
+            var groupDto = _appDbContext.Groups.Select(g => new GroupDto
+            {
+                Id = g.Id,
+                Name = g.Name,
+                Specialty = g.Specialty,
+                Year = g.Year,
+                CourseName=g.Course!.Name,
+                TeacherName=g.Teacher!.Name
+
+
+
+            });
+         //   var group = await _appDbContext.Groups.Include(c=>c.Course).Include(t=>t.Teacher) //не работает Teacher
+           //    .ToListAsync();
+            return groupDto;
 
 
         }
@@ -39,6 +52,25 @@ namespace StudentAutorization.Repositories.Implementation
         public async Task<Group> GetByIdAsync(int id)
         {
             return await _appDbContext.Groups.FindAsync(id);
+        }
+
+        public async Task<IEnumerable<StudentDto>> GetStudents(int id)
+        {
+            var studentDto = _appDbContext.Students.Where(g => g.GroupId == id).Select(s => new StudentDto
+            {
+                Id = s.Id,
+                FIO = s.FIO,
+                NumberPhone = s.NumberPhone,
+
+                PictureName = s.Picture!.Src,
+                GroupName = s.Group!.Name
+
+
+
+            });
+            //   var group = await _appDbContext.Groups.Include(c=>c.Course).Include(t=>t.Teacher) //не работает Teacher
+            //    .ToListAsync();
+            return studentDto;
         }
 
         public async Task UpdateAsync(Group group)

@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 
 using StudentAutorization.Models.Main;
+using StudentAutorization.Repositories.Implementation;
 using StudentAutorization.Repositories.Interface;
 using StudentAutorization.ViewModel;
 
@@ -14,10 +15,12 @@ namespace StudentAutorization.Controllers.Main
     public class TeacherController : ControllerBase
     {
         private readonly ITeacherRepositoty _teacherRepository;
+        private readonly IPictureRepository _pictureRepository;
 
-        public TeacherController(ITeacherRepositoty teacherRepository)
+        public TeacherController(ITeacherRepositoty teacherRepository, IPictureRepository pictureRepository)
         {
             _teacherRepository = teacherRepository;
+            _pictureRepository = pictureRepository;
         }
 
         [HttpGet]
@@ -45,7 +48,11 @@ namespace StudentAutorization.Controllers.Main
         {
             var teacher = new Teacher()
             {
-                Name = teacherRequest.Name
+                Name = teacherRequest.Name,
+                Picture = _pictureRepository.GetByIdAsync(teacherRequest.PictureId).Result,
+
+
+
 
             };
 
@@ -63,6 +70,8 @@ namespace StudentAutorization.Controllers.Main
                 return NotFound();
             }
             teacher.Name = teacherRequest.Name;
+            teacher.PictureId = teacherRequest.PictureId;
+            teacher.Picture = _pictureRepository.GetByIdAsync(teacherRequest.PictureId).Result;
             await _teacherRepository.UpdateAsync(teacher);
             return NoContent();
         }

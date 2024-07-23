@@ -2,10 +2,11 @@
 {
     public class StudentRequest
     {
-        public string Name { get; set; } = string.Empty;
+        public string FIO { get; set; } = string.Empty;
 
-        public int GroupId { get; set; }     
+        public int GroupId { get; set; }
 
-        public byte[] Photo { get; set; }
+        public string NumberPhone { get; set; } = string.Empty;
+        public int PictureId { get; set; }
     }
 }

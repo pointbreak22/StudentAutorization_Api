@@ -29,7 +29,9 @@ namespace StudentAutorization.Controllers.Main
         [HttpGet]
         public async Task<IActionResult> Get()    //тут не работает
         {
+
             var groups = await _groupRepository.GetAllAsync();
+
             return Ok(groups);
         }
 
@@ -45,6 +47,13 @@ namespace StudentAutorization.Controllers.Main
             }
             return Ok(group);
         }
+        [HttpGet("{id}/students")]
+        public async Task<IActionResult> GetStudents(int id)
+        {
+
+            var students = await _groupRepository.GetStudents(id);
+            return Ok(students);
+        }
         // POST api/<GroupController>
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] GroupRequest groupRequest)
@@ -58,6 +67,8 @@ namespace StudentAutorization.Controllers.Main
             {
                 Name = groupRequest.Name,
            //     CourseId = groupRequest.CourseId,
+           Specialty=groupRequest.Specialty,
+           Year=groupRequest.Year,
                 Course=course,
             //    TeacherId= groupRequest.TeacherId,
                 Teacher=teacher,
@@ -68,8 +79,8 @@ namespace StudentAutorization.Controllers.Main
 
             var createdGrouprResponse = await _groupRepository.AddAsync(group);
 
-            return NoContent(); 
-            //return CreatedAtAction(nameof(GetById), new { id = createdGrouprResponse.Id }, createdGrouprResponse);
+         //   return NoContent(); 
+           return CreatedAtAction(nameof(GetById), new { id = createdGrouprResponse.Id }, createdGrouprResponse);
 
 
         }
@@ -85,6 +96,7 @@ namespace StudentAutorization.Controllers.Main
             }
 
             group.Name = groupRequest.Name;
+            group.Specialty = groupRequest.Specialty;
             group.CourseId = groupRequest.CourseId;
             group.TeacherId = groupRequest.TeacherId;
             group.Course = _courseRepository.GetByIdAsync(groupRequest.CourseId).Result;

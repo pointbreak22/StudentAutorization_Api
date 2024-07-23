@@ -12,7 +12,8 @@ namespace StudentAutorization.ViewModel
 
         public string Name { get; set; } = string.Empty;
 
-
+        public string Specialty {  get; set; } = string.Empty;
+       public string   Year        { get; set; }
         public int CourseId { get; set; }
        
 

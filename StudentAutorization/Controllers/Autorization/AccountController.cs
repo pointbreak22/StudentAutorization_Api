@@ -420,12 +420,13 @@ namespace StudentAutorization.Controllers.Autorization
         public async Task<ActionResult<IEnumerable<UserDetailDto>>> GetUsers()
         {
 
-            var users = await _userManager.Users.Select(u => new UserDetailDto
+            var users = await _userManager.Users.Include(u=>u.Roles).Select(u => new UserDetailDto
             {
                 Id = u.Id,
                 Email = u.Email,
                 FullName = u.FullName,
-                Roles = _userManager.GetRolesAsync(u).Result.ToArray()
+                Roles = u.Roles.Select(r=>r.Name).ToArray()
+                // Roles = _userManager.GetRolesAsync(u).Result.ToArray()
             }).ToListAsync();
             return Ok(users);
         }

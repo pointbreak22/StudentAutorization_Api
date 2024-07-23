@@ -12,8 +12,8 @@ using StudentAutorization.Data;
 namespace StudentAutorization.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240629164317_database27")]
-    partial class database27
+    [Migration("20240718135813_mfinal4")]
+    partial class mfinal4
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -262,8 +262,17 @@ namespace StudentAutorization.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("Specialty")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<int>("TeacherId")
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("teacher_id");
+
+                    b.Property<string>("Year")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -272,6 +281,23 @@ namespace StudentAutorization.Migrations
                     b.HasIndex("TeacherId");
 
                     b.ToTable("Groups");
+                });
+
+            modelBuilder.Entity("StudentAutorization.Models.Main.Picture", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Src")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Pictures");
                 });
 
             modelBuilder.Entity("StudentAutorization.Models.Main.Student", b =>
@@ -289,12 +315,18 @@ namespace StudentAutorization.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<byte[]>("Photo")
-                        .HasColumnType("bytea");
+                    b.Property<string>("NumberPhone")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("PictureId")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
                     b.HasIndex("GroupId");
+
+                    b.HasIndex("PictureId");
 
                     b.ToTable("Students");
                 });
@@ -311,7 +343,12 @@ namespace StudentAutorization.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int>("PictureId")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("PictureId");
 
                     b.ToTable("Teachers");
                 });
@@ -394,7 +431,26 @@ namespace StudentAutorization.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("StudentAutorization.Models.Main.Picture", "Picture")
+                        .WithMany()
+                        .HasForeignKey("PictureId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Group");
+
+                    b.Navigation("Picture");
+                });
+
+            modelBuilder.Entity("StudentAutorization.Models.Main.Teacher", b =>
+                {
+                    b.HasOne("StudentAutorization.Models.Main.Picture", "Picture")
+                        .WithMany()
+                        .HasForeignKey("PictureId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Picture");
                 });
 
             modelBuilder.Entity("StudentAutorization.Models.Main.Group", b =>
