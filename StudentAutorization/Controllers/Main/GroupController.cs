@@ -2,7 +2,6 @@
 using StudentAutorization.Models.Main;
 using StudentAutorization.Repositories.Interface;
 using StudentAutorization.ViewModel;
-using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -25,9 +24,9 @@ namespace StudentAutorization.Controllers.Main
         }
 
 
-        // GET: api/<GroupController>
+
         [HttpGet]
-        public async Task<IActionResult> Get()    //тут не работает
+        public async Task<IActionResult> Get()
         {
 
             var groups = await _groupRepository.GetAllAsync();
@@ -35,7 +34,7 @@ namespace StudentAutorization.Controllers.Main
             return Ok(groups);
         }
 
-        // GET api/<GroupController>/5
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
@@ -66,12 +65,12 @@ namespace StudentAutorization.Controllers.Main
             var group = new Group()
             {
                 Name = groupRequest.Name,
-           //     CourseId = groupRequest.CourseId,
-           Specialty=groupRequest.Specialty,
-           Year=groupRequest.Year,
-                Course=course,
-            //    TeacherId= groupRequest.TeacherId,
-                Teacher=teacher,
+
+                Specialty = groupRequest.Specialty,
+                Year = groupRequest.Year,
+                Course = course,
+
+                Teacher = teacher,
 
 
 
@@ -79,13 +78,11 @@ namespace StudentAutorization.Controllers.Main
 
             var createdGrouprResponse = await _groupRepository.AddAsync(group);
 
-         //   return NoContent(); 
-           return CreatedAtAction(nameof(GetById), new { id = createdGrouprResponse.Id }, createdGrouprResponse);
+            return CreatedAtAction(nameof(GetById), new { id = createdGrouprResponse.Id }, createdGrouprResponse);
 
 
         }
 
-        // PUT api/<GroupController>/5
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(int id, [FromBody] GroupRequest groupRequest)
         {
@@ -105,7 +102,6 @@ namespace StudentAutorization.Controllers.Main
             return NoContent();
         }
 
-        // DELETE api/<GroupController>/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {

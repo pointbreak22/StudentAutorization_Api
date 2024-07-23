@@ -24,15 +24,13 @@ namespace StudentAutorization.Controllers.Main
             _pictureRepository = pictureRepository;
         }
 
-        // GET: api/<StudentController>
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var students=await _studentRepository.GetAllAsync();
+            var students = await _studentRepository.GetAllAsync();
             return Ok(students);
         }
 
-        // GET api/<StudentController>/5
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
@@ -45,17 +43,17 @@ namespace StudentAutorization.Controllers.Main
             return Ok(student);
         }
 
-        // POST api/<StudentController>
+
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] StudentRequest studentRequest)
         {
-            var student= new Student()
+            var student = new Student()
             {
                 FIO = studentRequest.FIO,
                 NumberPhone = studentRequest.NumberPhone,
                 Group = _groupRepository.GetByIdAsync(studentRequest.GroupId).Result,
-                Picture=_pictureRepository.GetByIdAsync(studentRequest.PictureId).Result,
-                
+                Picture = _pictureRepository.GetByIdAsync(studentRequest.PictureId).Result,
+
 
 
 
@@ -78,15 +76,14 @@ namespace StudentAutorization.Controllers.Main
             student.NumberPhone = studentRequest.NumberPhone;
             student.PictureId = studentRequest.PictureId;
             student.GroupId = studentRequest.GroupId;
-            student.Group =_groupRepository.GetByIdAsync(studentRequest.GroupId).Result;
+            student.Group = _groupRepository.GetByIdAsync(studentRequest.GroupId).Result;
             student.Picture = _pictureRepository.GetByIdAsync(studentRequest.PictureId).Result;
 
             await _studentRepository.UpdateAsync(student);
             return NoContent();
-            
+
         }
 
-        // DELETE api/<StudentController>/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {

@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using StudentAutorization.Models.Autorization;
 using StudentAutorization.Models.Main;
-using System.Reflection.Metadata;
 
 namespace StudentAutorization.Data
 {
@@ -18,28 +17,11 @@ namespace StudentAutorization.Data
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
-        //    Database.EnsureDeleted();
-         // Database.EnsureCreated();
+
 
         }
 
-        //protected override void OnModelCreating(ModelBuilder modelBuilder)
-        //{
 
-
-        //    modelBuilder.Entity<Student>()
-        //        .HasOne(p => p.Group)
-        //        .WithMany(t => t.Students)
-        //        .HasForeignKey(p => p.GroupId);
-
-        //    modelBuilder.Entity<Group>()
-        //        .HasOne(p => p.Teacher)
-        //        .WithMany(t => t.Groups)
-        //        .HasForeignKey(p => p.TeacherId);
-
-        //    base.OnModelCreating(modelBuilder);
-
-        //}
 
 
     }

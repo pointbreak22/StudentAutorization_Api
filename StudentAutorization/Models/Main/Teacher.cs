@@ -1,7 +1,6 @@
 ﻿
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text.RegularExpressions;
 
 namespace StudentAutorization.Models.Main
 {
@@ -22,7 +21,7 @@ namespace StudentAutorization.Models.Main
         [System.Text.Json.Serialization.JsonIgnore]
 
         public List<Group>? Groups { get; set; }
-        
+
 
 
     }

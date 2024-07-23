@@ -1,7 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Drawing;
 
 namespace StudentAutorization.Models.Main
 {
@@ -11,19 +9,19 @@ namespace StudentAutorization.Models.Main
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         [Required]
-        public string FIO { get; set; }=string.Empty;
+        public string FIO { get; set; } = string.Empty;
         public string NumberPhone { get; set; } = string.Empty;
 
         public int GroupId { get; set; }
 
         [ForeignKey(nameof(GroupId))]
         public Group? Group { get; set; }
-   
+
         public int PictureId { get; set; }
 
-        public  Picture? Picture { get; set; }
+        public Picture? Picture { get; set; }
 
 
-        
+
     }
 }

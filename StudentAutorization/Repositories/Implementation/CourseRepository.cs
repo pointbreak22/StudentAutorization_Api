@@ -5,14 +5,14 @@ using StudentAutorization.Repositories.Interface;
 
 namespace StudentAutorization.Repositories.Implementation
 {
-    public class CourseRepository:ICourseRepository
+    public class CourseRepository : ICourseRepository
     {
         private readonly AppDbContext _appDbContext;
- 
+
         public CourseRepository(AppDbContext appDbContext)
         {
             _appDbContext = appDbContext;
-           
+
         }
         public async Task<Course> AddAsync(Course course)
         {
@@ -29,11 +29,11 @@ namespace StudentAutorization.Repositories.Implementation
 
         public async Task<IEnumerable<Course>> GetAllAsync()
         {
-                 var course = await _appDbContext.Courses        
-                    .ToListAsync();
-                return course;     
+            var course = await _appDbContext.Courses
+               .ToListAsync();
+            return course;
 
-          
+
         }
 
         public async Task<Course> GetByIdAsync(int id)

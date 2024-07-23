@@ -20,7 +20,6 @@ namespace StudentAutorization.Controllers.Main
 
 
 
-        // GET: api/<CourseController>
         [HttpGet]
         public async Task<IActionResult> Get()
         {
@@ -28,7 +27,6 @@ namespace StudentAutorization.Controllers.Main
             return Ok(courses);
 
         }
-        // GET api/<CourseController>/5
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
@@ -41,7 +39,7 @@ namespace StudentAutorization.Controllers.Main
             return Ok(course);
         }
 
-        // POST api/<CourseController>
+
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] CourseRequest courseRequest)
         {
@@ -57,7 +55,7 @@ namespace StudentAutorization.Controllers.Main
 
         }
 
-        // PUT api/<CourseController>/5
+
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(int id, [FromBody] CourseRequest courseRequest)
         {
@@ -71,7 +69,7 @@ namespace StudentAutorization.Controllers.Main
             return NoContent();
         }
 
-        // DELETE api/<CourseController>/5
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {

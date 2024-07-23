@@ -6,7 +6,7 @@ using StudentAutorization.ViewModel;
 
 namespace StudentAutorization.Repositories.Implementation
 {
-    public class TeacherRepository:ITeacherRepositoty
+    public class TeacherRepository : ITeacherRepositoty
     {
         private readonly AppDbContext _appDbContext;
 
@@ -34,11 +34,11 @@ namespace StudentAutorization.Repositories.Implementation
             {
                 Id = s.Id,
                 Name = s.Name,
-               
+
                 PictureId = s.PictureId,
 
                 PictureName = s.Picture!.Src,
-             
+
 
 
 

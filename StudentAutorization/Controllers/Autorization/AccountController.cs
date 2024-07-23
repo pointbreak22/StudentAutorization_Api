@@ -11,8 +11,6 @@ using System.Net;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -195,7 +193,7 @@ namespace StudentAutorization.Controllers.Autorization
 
 
             var client = new RestClient("https://send.api.mailtrap.io/api/send");
-            //   var request = new RestRequest();
+
 
             var request = new RestRequest
             {
@@ -210,10 +208,8 @@ namespace StudentAutorization.Controllers.Autorization
                 template_uuid = "85d36fb7-b171-45aa-8f74-38c2e8a23539",
                 template_variables = new { user_email = user.Email, pass_reset_link = resetLink }
             });
-            // request.AddHeader("Content-Type", "application/json");
-            //  request.AddParameter("application/json", "{\"from\":{\"email\":\"mailtrap@demomailtrap.com\",\"name\":\"Mailtrap Test\"},\"to\":[{\"email\":\"zbrozhek13@gmail.com\"}],\"template_uuid\":\"85d36fb7-b171-45aa-8f74-38c2e8a23539\",\"template_variables\":{\"user_email\":\"Test_User_email\",\"pass_reset_link\":\"Test_Pass_reset_link\"}}", ParameterType.RequestBody);
             var response = client.Execute(request);
-            //  System.Console.WriteLine(response.Content);
+
             if (response.IsSuccessful)
             {
                 return Ok(new AuthResponseDto
@@ -240,7 +236,6 @@ namespace StudentAutorization.Controllers.Autorization
         public async Task<IActionResult> ResetPassword(ResetPasswordDto resetPasswordDto)
         {
             var user = await _userManager.FindByEmailAsync(resetPasswordDto.Email);
-            //    resetPasswordDto.Token=WebUtility.UrlDecode(resetPasswordDto.Token);
             if (user is null)
             {
 
@@ -383,10 +378,6 @@ namespace StudentAutorization.Controllers.Autorization
         [Authorize]
         public async Task<ActionResult<UserDetailDto>> GetUserDetail()
         {
-            //    if (!ModelState.IsValid)
-            //    {
-            //        return BadRequest(ModelState);
-            //    }
             var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var user = await _userManager.FindByIdAsync(currentUserId!);
 
@@ -420,12 +411,12 @@ namespace StudentAutorization.Controllers.Autorization
         public async Task<ActionResult<IEnumerable<UserDetailDto>>> GetUsers()
         {
 
-            var users = await _userManager.Users.Include(u=>u.Roles).Select(u => new UserDetailDto
+            var users = await _userManager.Users.Include(u => u.Roles).Select(u => new UserDetailDto
             {
                 Id = u.Id,
                 Email = u.Email,
                 FullName = u.FullName,
-                Roles = u.Roles.Select(r=>r.Name).ToArray()
+                Roles = u.Roles.Select(r => r.Name).ToArray()
                 // Roles = _userManager.GetRolesAsync(u).Result.ToArray()
             }).ToListAsync();
             return Ok(users);

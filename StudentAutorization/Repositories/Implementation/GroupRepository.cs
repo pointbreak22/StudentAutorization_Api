@@ -6,7 +6,7 @@ using StudentAutorization.ViewModel;
 
 namespace StudentAutorization.Repositories.Implementation
 {
-    public class GroupRepository:IGroupRepository   //тут ошибка
+    public class GroupRepository : IGroupRepository
     {
         private readonly AppDbContext _appDbContext;
 
@@ -36,14 +36,12 @@ namespace StudentAutorization.Repositories.Implementation
                 Name = g.Name,
                 Specialty = g.Specialty,
                 Year = g.Year,
-                CourseName=g.Course!.Name,
-                TeacherName=g.Teacher!.Name
+                CourseName = g.Course!.Name,
+                TeacherName = g.Teacher!.Name
 
 
 
             });
-         //   var group = await _appDbContext.Groups.Include(c=>c.Course).Include(t=>t.Teacher) //не работает Teacher
-           //    .ToListAsync();
             return groupDto;
 
 
@@ -68,8 +66,6 @@ namespace StudentAutorization.Repositories.Implementation
 
 
             });
-            //   var group = await _appDbContext.Groups.Include(c=>c.Course).Include(t=>t.Teacher) //не работает Teacher
-            //    .ToListAsync();
             return studentDto;
         }
 

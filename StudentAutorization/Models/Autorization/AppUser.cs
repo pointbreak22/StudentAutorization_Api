@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using StudentAutorization.Models.Main;
 
 namespace StudentAutorization.Models.Autorization
 {
-    
+
     public class AppUser : IdentityUser
     {
         public string? FullName { get; set; }

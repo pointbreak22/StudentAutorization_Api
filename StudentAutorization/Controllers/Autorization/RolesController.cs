@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StudentAutorization.Dtos.Autorization;
@@ -13,7 +12,6 @@ namespace StudentAutorization.Controllers.Autorization
     public class RolesController : ControllerBase
     {
 
-        //  Dispose() сюда 
 
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly UserManager<AppUser> _userManager;
@@ -46,7 +44,7 @@ namespace StudentAutorization.Controllers.Autorization
         }
 
         [HttpGet]
-       // [AllowAnonymous]
+        // [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<RoleResponseDto>>> GetRoles()
         {
             var roles = await _roleManager.Roles.Select(r => new RoleResponseDto

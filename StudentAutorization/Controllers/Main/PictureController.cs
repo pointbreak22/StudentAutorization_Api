@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 using StudentAutorization.Models.Main;
 using StudentAutorization.Repositories.Interface;
@@ -32,7 +31,7 @@ namespace StudentAutorization.Controllers.Main
         public async Task<IActionResult> GetById(int id)
         {
 
-            var picture=await _pictureRepository.GetByIdAsync(id);
+            var picture = await _pictureRepository.GetByIdAsync(id);
             if (picture == null)
             {
                 return NotFound();
@@ -50,15 +49,15 @@ namespace StudentAutorization.Controllers.Main
             };
 
             var createdPictureResponse = await _pictureRepository.AddAsync(picture);
-            return CreatedAtAction(nameof(GetById),new {id= createdPictureResponse.Id},createdPictureResponse);
+            return CreatedAtAction(nameof(GetById), new { id = createdPictureResponse.Id }, createdPictureResponse);
 
 
         }
         [HttpPut("{id}")]
-        public async  Task<IActionResult> Put (int id, [FromBody] PictureRequest pictureRequest)
+        public async Task<IActionResult> Put(int id, [FromBody] PictureRequest pictureRequest)
         {
-            var picture=await _pictureRepository.GetByIdAsync (id);
-            if  (picture == null)
+            var picture = await _pictureRepository.GetByIdAsync(id);
+            if (picture == null)
             {
                 return NotFound();
             }
@@ -69,7 +68,7 @@ namespace StudentAutorization.Controllers.Main
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var picture=await _pictureRepository.GetByIdAsync(id);
+            var picture = await _pictureRepository.GetByIdAsync(id);
             if (picture == null)
             {
                 return NotFound();
@@ -79,6 +78,6 @@ namespace StudentAutorization.Controllers.Main
         }
 
 
-        
+
     }
 }

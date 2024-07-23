@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 using StudentAutorization.Models.Main;
-using StudentAutorization.Repositories.Implementation;
 using StudentAutorization.Repositories.Interface;
 using StudentAutorization.ViewModel;
 
@@ -35,7 +33,7 @@ namespace StudentAutorization.Controllers.Main
         public async Task<IActionResult> GetById(int id)
         {
 
-            var teacher=await _teacherRepository.GetByIdAsync(id);
+            var teacher = await _teacherRepository.GetByIdAsync(id);
             if (teacher == null)
             {
                 return NotFound();
@@ -56,16 +54,16 @@ namespace StudentAutorization.Controllers.Main
 
             };
 
-            var createdTeacherResponse=await _teacherRepository.AddAsync(teacher);
-            return CreatedAtAction(nameof(GetById),new {id=createdTeacherResponse.Id},createdTeacherResponse);
+            var createdTeacherResponse = await _teacherRepository.AddAsync(teacher);
+            return CreatedAtAction(nameof(GetById), new { id = createdTeacherResponse.Id }, createdTeacherResponse);
 
 
         }
         [HttpPut("{id}")]
-        public async  Task<IActionResult> Put (int id, [FromBody] TeacherRequest teacherRequest)
+        public async Task<IActionResult> Put(int id, [FromBody] TeacherRequest teacherRequest)
         {
-            var teacher=await _teacherRepository.GetByIdAsync (id);
-            if  (teacher == null)
+            var teacher = await _teacherRepository.GetByIdAsync(id);
+            if (teacher == null)
             {
                 return NotFound();
             }
@@ -78,7 +76,7 @@ namespace StudentAutorization.Controllers.Main
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var teacher=await _teacherRepository.GetByIdAsync(id);
+            var teacher = await _teacherRepository.GetByIdAsync(id);
             if (teacher == null)
             {
                 return NotFound();
@@ -88,6 +86,6 @@ namespace StudentAutorization.Controllers.Main
         }
 
 
-        
+
     }
 }
