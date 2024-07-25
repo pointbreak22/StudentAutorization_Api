@@ -46,7 +46,7 @@ namespace StudentAutorization.Controllers.Main
         {
             var teacher = new Teacher()
             {
-                Name = teacherRequest.Name,
+                FIO = teacherRequest.FIO,
                 Picture = _pictureRepository.GetByIdAsync(teacherRequest.PictureId).Result,
 
 
@@ -67,7 +67,7 @@ namespace StudentAutorization.Controllers.Main
             {
                 return NotFound();
             }
-            teacher.Name = teacherRequest.Name;
+            teacher.FIO = teacherRequest.FIO;
             teacher.PictureId = teacherRequest.PictureId;
             teacher.Picture = _pictureRepository.GetByIdAsync(teacherRequest.PictureId).Result;
             await _teacherRepository.UpdateAsync(teacher);

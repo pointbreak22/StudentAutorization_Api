@@ -33,7 +33,7 @@ namespace StudentAutorization.Repositories.Implementation
             var teacherDto = _appDbContext.Teachers.Select(s => new TeacherDto
             {
                 Id = s.Id,
-                Name = s.Name,
+                FIO = s.FIO,
 
                 PictureId = s.PictureId,
 

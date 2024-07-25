@@ -37,7 +37,7 @@ namespace StudentAutorization.Repositories.Implementation
                 Specialty = g.Specialty,
                 Year = g.Year,
                 CourseName = g.Course!.Name,
-                TeacherName = g.Teacher!.Name
+                TeacherName = g.Teacher!.FIO
 
 
 
