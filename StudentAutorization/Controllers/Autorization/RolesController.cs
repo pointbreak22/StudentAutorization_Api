@@ -96,9 +96,15 @@ namespace StudentAutorization.Controllers.Autorization
         public async Task<IActionResult> DeleteRole(string id)
         {
             var role = await _roleManager.FindByIdAsync(id);
+            
             if (role is null)
             {
                 return NotFound("Role not found.");
+            }
+
+            if (role.Name=="Admin" || role.Name=="User")
+            {
+                return BadRequest("Roles cannot be deleted User or Admin.");
             }
             var result = await _roleManager.DeleteAsync(role);
             if (result.Succeeded)
