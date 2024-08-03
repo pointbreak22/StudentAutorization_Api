@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StudentAutorization.Dtos.Autorization;
 using StudentAutorization.Models.Autorization;
+using System.Diagnostics;
 
 namespace StudentAutorization.Controllers.Autorization
 {
@@ -20,7 +21,18 @@ namespace StudentAutorization.Controllers.Autorization
         {
             _roleManager = roleManager;
             _userManager = userManager;
+
+
+          var createRole= CreateRole(new CreateRoleDto { RoleName = "Admin" });
+          Debug.WriteLine(createRole.Result);
+          createRole = CreateRole(new CreateRoleDto { RoleName = "User" });
+          Debug.WriteLine(createRole.Result);
+
+
         }
+
+      
+
 
         [HttpPost]
         public async Task<IActionResult> CreateRole([FromBody] CreateRoleDto createRoleDto)
@@ -51,7 +63,7 @@ namespace StudentAutorization.Controllers.Autorization
             {
                 Id = r.Id,
                 Name = r.Name,
-                TotalUsers = _userManager.Users.Where(u => u.Roles.Contains(r)).Count()
+              //  TotalUsers = _userManager.Users.Where(u => u.Roles.Contains(r)).Count()
                 // TotalUsers = _userManager.GetUsersInRoleAsync(r.Name!).Result.Count()
 
             }).ToListAsync();
