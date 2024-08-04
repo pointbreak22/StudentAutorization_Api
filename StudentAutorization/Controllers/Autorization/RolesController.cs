@@ -59,11 +59,13 @@ namespace StudentAutorization.Controllers.Autorization
         // [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<RoleResponseDto>>> GetRoles()
         {
+
+      
             var roles = await _roleManager.Roles.Select(r => new RoleResponseDto
             {
                 Id = r.Id,
                 Name = r.Name,
-              //  TotalUsers = _userManager.Users.Where(u => u.Roles.Contains(r)).Count()
+                TotalUsers = _userManager.Users.Where(u => u.Roles.Contains(r)).Count()
                 // TotalUsers = _userManager.GetUsersInRoleAsync(r.Name!).Result.Count()
 
             }).ToListAsync();
@@ -87,6 +89,7 @@ namespace StudentAutorization.Controllers.Autorization
             var result = await _userManager.AddToRoleAsync(user, role.Name!);
             if (result.Succeeded)
             {
+                user.Roles.Add(role);
                 return Ok(new { message = "Role assigned succesfully" });
             }
             var error = result.Errors.FirstOrDefault();
@@ -102,14 +105,16 @@ namespace StudentAutorization.Controllers.Autorization
                 return NotFound("Role not found.");
             }
 
-            if (role.Name=="Admin" || role.Name=="User")
+            if (role.Name == "Admin" || role.Name == "User")
             {
                 return BadRequest("Roles cannot be deleted User or Admin.");
             }
             var result = await _roleManager.DeleteAsync(role);
             if (result.Succeeded)
             {
+           
                 return Ok(new { message = "Role deleted succesfully" });
+                
 
             }
             return BadRequest("Role deletion failed.");

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using StudentAutorization.Models.Autorization;
 using StudentAutorization.Models.Main;
@@ -21,7 +22,23 @@ namespace StudentAutorization.Data
 
         }
 
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
 
+            builder.Entity<AppUser>()
+                .HasMany(u => u.Roles)
+                .WithMany("Users")
+                .UsingEntity<IdentityUserRole<string>>(
+                    userRole => userRole.HasOne<IdentityRole>()
+                        .WithMany()
+                        .HasForeignKey(ur => ur.RoleId)
+                        .IsRequired(),
+                    userRole => userRole.HasOne<AppUser>()
+                        .WithMany()
+                        .HasForeignKey(ur => ur.UserId)
+                        .IsRequired());
+        }
 
 
     }

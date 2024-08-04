@@ -355,12 +355,15 @@ namespace StudentAutorization.Controllers.Autorization
             if (registerDto.Roles is null)
             {
                 await _userManager.AddToRoleAsync(user, "User");
+             
             }
             else
             {
                 foreach (var role in registerDto.Roles)
                 {
+
                     await _userManager.AddToRoleAsync(user, role);
+            
                 }
             }
 

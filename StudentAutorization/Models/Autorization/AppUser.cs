@@ -9,8 +9,8 @@ namespace StudentAutorization.Models.Autorization
         public string? RefreshToken { get; set; }
         public DateTime RefreshTokenExpiryTime { get; set; }
 
-        [System.Text.Json.Serialization.JsonIgnore]
-        public List<IdentityRole> Roles { get; } = new List<IdentityRole>();
+        [System.Text.Json.Serialization.JsonIgnore]//
+        public List<IdentityRole> Roles { get; set; } = new List<IdentityRole>();//
 
 
 
