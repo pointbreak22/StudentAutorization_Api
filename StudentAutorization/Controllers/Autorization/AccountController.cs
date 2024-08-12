@@ -301,8 +301,7 @@ namespace StudentAutorization.Controllers.Autorization
             var tokenHander = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_configuration.GetValue<string>("JWTSetting:securityKey")!);
             var roles = _userManager.GetRolesAsync(user).Result;
-            List<Claim> claims = [
-                new (JwtRegisteredClaimNames.Email,user.Email??""),
+            List<Claim> claims =  [new (JwtRegisteredClaimNames.Email,user.Email??""),
                 new (JwtRegisteredClaimNames.Name,user.FullName!),
                 new (JwtRegisteredClaimNames.NameId,user.Id??""),
                 new (JwtRegisteredClaimNames.Aud,_configuration.GetSection("JWTSetting").GetSection("ValidAudience").Value!),
@@ -419,7 +418,7 @@ namespace StudentAutorization.Controllers.Autorization
                 Id = u.Id,
                 Email = u.Email,
                 FullName = u.FullName,
-                Roles = u.Roles.Select(r => r.Name).ToArray()
+                Roles = u.Roles.Select(r => r.Name).ToArray()!
                 // Roles = _userManager.GetRolesAsync(u).Result.ToArray()
             }).ToListAsync();
             return Ok(users);

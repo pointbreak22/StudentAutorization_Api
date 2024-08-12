@@ -9,7 +9,7 @@
         public string Name { get; set; } = string.Empty;
 
         public string Specialty { get; set; } = string.Empty;
-        public string Year { get; set; }
+        public  string Year { get; set; } = string.Empty;
         public int CourseId { get; set; }
 
 

@@ -96,6 +96,7 @@ namespace StudentAutorization.Controllers.Main
             group.Specialty = groupRequest.Specialty;
             group.CourseId = groupRequest.CourseId;
             group.TeacherId = groupRequest.TeacherId;
+            group.Year = groupRequest.Year;
             group.Course = _courseRepository.GetByIdAsync(groupRequest.CourseId).Result;
             group.Teacher = _teacherRepository.GetByIdAsync(groupRequest.TeacherId).Result;
             await _groupRepository.UpdateAsync(group);
