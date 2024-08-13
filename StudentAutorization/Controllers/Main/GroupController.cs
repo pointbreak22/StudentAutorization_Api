@@ -53,7 +53,7 @@ namespace StudentAutorization.Controllers.Main
             var students = await _groupRepository.GetStudents(id);
             return Ok(students);
         }
-        // POST api/<GroupController>
+   
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] GroupRequest groupRequest)
         {

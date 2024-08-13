@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using StudentAutorization.Dtos.Autorization;
 using StudentAutorization.Models.Autorization;
 using System.Diagnostics;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace StudentAutorization.Controllers.Autorization
 {
@@ -87,10 +88,36 @@ namespace StudentAutorization.Controllers.Autorization
                 return NotFound("Role not found.");
             }
             var result = await _userManager.AddToRoleAsync(user, role.Name!);
+           
             if (result.Succeeded)
             {
-                user.Roles.Add(role);
+           
                 return Ok(new { message = "Role assigned succesfully" });
+            }
+            var error = result.Errors.FirstOrDefault();
+            return BadRequest(error!.Description);
+        }
+        [HttpPost("assign-delete")]
+        public async Task<IActionResult> DeleteAssignRole([FromBody] RoleAssignDto roleAssignDto)
+        {
+            var user = await _userManager.FindByIdAsync(roleAssignDto.UserId);
+
+            if (user == null)
+            {
+                return NotFound("User not found.");
+            }
+            var role = await _roleManager.FindByIdAsync(roleAssignDto.RoleId);
+            if (role == null)
+            {
+                return NotFound("Role not found.");
+            }
+            
+            var result = await _userManager.RemoveFromRoleAsync(user, role.Name!);
+
+            if (result.Succeeded)
+            {
+
+                return Ok(new { message = "Role deleted in user succesfully" });
             }
             var error = result.Errors.FirstOrDefault();
             return BadRequest(error!.Description);
