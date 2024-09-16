@@ -18,6 +18,19 @@ var JWTSetting = builder.Configuration.GetSection("JWTSetting");
 builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
 
+
+builder.Services.Configure<IdentityOptions>(options =>
+    {
+        options.Password.RequireDigit = false;
+        options.Password.RequireUppercase = false; 
+        options.Password.RequireLowercase = false;
+        options.Password.RequireNonAlphanumeric = false;//отключение символов
+        options.User.RequireUniqueEmail = true;
+    }
+);
+
+
+
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 builder.Services.AddScoped<ICourseRepository, CourseRepository>();
 builder.Services.AddScoped<IGroupRepository, GroupRepository>();

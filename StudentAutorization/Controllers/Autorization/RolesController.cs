@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using StudentAutorization.Dtos.Autorization;
 using StudentAutorization.Models.Autorization;
 using System.Diagnostics;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace StudentAutorization.Controllers.Autorization
 {
@@ -24,15 +23,15 @@ namespace StudentAutorization.Controllers.Autorization
             _userManager = userManager;
 
 
-          var createRole= CreateRole(new CreateRoleDto { RoleName = "Admin" });
-          Debug.WriteLine(createRole.Result);
-          createRole = CreateRole(new CreateRoleDto { RoleName = "User" });
-          Debug.WriteLine(createRole.Result);
+            var createRole = CreateRole(new CreateRoleDto { RoleName = "Admin" });
+            Debug.WriteLine(createRole.Result);
+            createRole = CreateRole(new CreateRoleDto { RoleName = "User" });
+            Debug.WriteLine(createRole.Result);
 
 
         }
 
-      
+
 
 
         [HttpPost]
@@ -61,7 +60,7 @@ namespace StudentAutorization.Controllers.Autorization
         public async Task<ActionResult<IEnumerable<RoleResponseDto>>> GetRoles()
         {
 
-      
+
             var roles = await _roleManager.Roles.Select(r => new RoleResponseDto
             {
                 Id = r.Id,
@@ -88,10 +87,10 @@ namespace StudentAutorization.Controllers.Autorization
                 return NotFound("Role not found.");
             }
             var result = await _userManager.AddToRoleAsync(user, role.Name!);
-           
+
             if (result.Succeeded)
             {
-           
+
                 return Ok(new { message = "Role assigned succesfully" });
             }
             var error = result.Errors.FirstOrDefault();
@@ -111,7 +110,7 @@ namespace StudentAutorization.Controllers.Autorization
             {
                 return NotFound("Role not found.");
             }
-            
+
             var result = await _userManager.RemoveFromRoleAsync(user, role.Name!);
 
             if (result.Succeeded)
@@ -126,7 +125,7 @@ namespace StudentAutorization.Controllers.Autorization
         public async Task<IActionResult> DeleteRole(string id)
         {
             var role = await _roleManager.FindByIdAsync(id);
-            
+
             if (role is null)
             {
                 return NotFound("Role not found.");
@@ -139,9 +138,9 @@ namespace StudentAutorization.Controllers.Autorization
             var result = await _roleManager.DeleteAsync(role);
             if (result.Succeeded)
             {
-           
+
                 return Ok(new { message = "Role deleted succesfully" });
-                
+
 
             }
             return BadRequest("Role deletion failed.");
